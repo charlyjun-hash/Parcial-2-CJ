@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Personaje
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Parallax ( -6 )
+    uniqueID: 2425147865
+    locked: 0
+  - name: Parallax ( -5 )
+    uniqueID: 4206835947
+    locked: 0
+  - name: Parallax ( -4 )
+    uniqueID: 173618061
+    locked: 0
+  - name: Parallax ( -3 )
+    uniqueID: 3306425307
+    locked: 0
+  - name: Parallax ( -2 )
+    uniqueID: 3514425831
+    locked: 0
+  - name: Parallax ( -1 )
+    uniqueID: 3073434837
+    locked: 0
+  - name: Parallax ( 0 )
+    uniqueID: 3582565409
+    locked: 0
+  - name: Parallax ( 1 )
+    uniqueID: 901242505
+    locked: 0
+  - name: Parallax ( 2 )
+    uniqueID: 2642905787
+    locked: 0
+  - name: Parallax ( 3 )
+    uniqueID: 3393742241
+    locked: 0
+  - name: Parallax ( 4 )
+    uniqueID: 614829153
+    locked: 0
+  - name: Parallax ( 5 )
+    uniqueID: 1176655283
+    locked: 0
+  - name: Parallax ( 6 )
+    uniqueID: 3398780759
+    locked: 0
+  - name: UI 1
+    uniqueID: 3929699429
+    locked: 0
+  - name: UI 2
+    uniqueID: 2932839743
+    locked: 0
+  - name: UI 3
+    uniqueID: 1755462623
+    locked: 0
+  - name: Bloqueo
+    uniqueID: 100727929
+    locked: 0
+  m_RenderingLayers:
+  - Default
+  m_MigratedRenderPipelines: []
