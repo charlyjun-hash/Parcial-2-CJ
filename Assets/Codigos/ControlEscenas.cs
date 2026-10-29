@@ -18,6 +18,11 @@ public class ControlEscenas : MonoBehaviour
         SceneManager.LoadScene("nivel");
     }
 
+    public void CargarEscenaNivel2()
+    {
+        SceneManager.LoadScene("nivel2");
+    }
+
     public void SalirDelJuego()
     {
 #if UNITY_EDITOR

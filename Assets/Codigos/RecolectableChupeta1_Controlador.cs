@@ -21,6 +21,7 @@ public class RecolectableChupeta1_Controlador : MonoBehaviour
         if (collision.CompareTag("Personaje"))
         {
             recolectada = true;
+            EfectoRecoger.Crear(transform.position);
 
             if (contador != null)
                 contador.AumentarContador();    // +1 en la interfaz, el contador emite su sonido

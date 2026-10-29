@@ -1,5 +1,5 @@
 using UnityEngine;
-class ControlPersonaje : MonoBehaviour
+public class ControlPersonaje : MonoBehaviour
 {
     public int vidasTotales = 2;
     public int vida = 100;

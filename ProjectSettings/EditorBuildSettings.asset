@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/escenas/nivel.unity
     guid: 78567d581a65a9047a25d9e56601d4a4
+  - enabled: 1
+    path: Assets/escenas/nivel2.unity
+    guid: 889e91847a1b4b149979ea25e16890f6
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
