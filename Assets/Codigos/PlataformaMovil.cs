@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Plataforma que va y viene entre su posicion inicial y esa posicion
-// desplazada por "desplazamiento". Lleva consigo a lo que este parado encima,
-// porque el jugador fija su propia velocidad y si no se quedaria atras.
+// desplazada por "desplazamiento". Acompana al jugador que esta encima hacia
+// los lados y al bajar; al subir lo empuja la fisica sola (si tambien lo
+// empujara este script, el impulso se sumaria y el salto saldria exagerado).
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlataformaMovil : MonoBehaviour
 {
@@ -27,10 +28,15 @@ public class PlataformaMovil : MonoBehaviour
         float t = (Mathf.Sin(Time.time * velocidad + desfase) + 1f) * 0.5f;
         Vector2 destino = inicio + desplazamiento * t;
         Vector2 delta = destino - rb.position;
+        float velocidadPlataforma = delta.y / Time.fixedDeltaTime;
         rb.MovePosition(destino);
 
         foreach (var p in pasajeros)
-            if (p != null) p.position += delta;
+        {
+            // si el pasajero va subiendo mas rapido que la plataforma, esta saltando: no se toca
+            if (p == null || p.linearVelocity.y > velocidadPlataforma + 0.5f) continue;
+            p.position += new Vector2(delta.x, Mathf.Min(delta.y, 0f));
+        }
         pasajeros.Clear();
     }
 

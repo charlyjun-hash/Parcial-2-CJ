@@ -1,102 +1,57 @@
-using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Pool;
 
-// Explosion de brillitos de colores y un "+1" que sube, al recoger una chupeta.
+// Al recoger una chupeta: estallido de brillitos (sistema de particulas reutilizado)
+// y un "+1" que sube y se desvanece. Los textos "+1" salen de un pool, no se crean
+// ni se destruyen en cada recogida.
 public class EfectoRecoger : MonoBehaviour
 {
-    private const float Duracion = 0.7f;
-    private const int CantidadBrillos = 14;
-
-    private static Sprite punto;
-    private static readonly Color[] Colores =
-    {
-        new Color(1f, 0.45f, 0.65f),
-        new Color(1f, 0.85f, 0.3f),
-        new Color(0.4f, 0.9f, 0.75f),
-        new Color(0.7f, 0.55f, 1f),
-        Color.white
-    };
-
-    private readonly List<SpriteRenderer> brillos = new List<SpriteRenderer>();
-    private readonly List<Vector2> velocidades = new List<Vector2>();
-    private TextMeshPro texto;
-    private float tiempo;
+    private static EfectoRecoger instancia;
+    private ObjectPool<TextMeshPro> textos;
 
     public static void Crear(Vector3 posicion)
     {
-        var go = new GameObject("Efecto Recoger");
-        go.transform.position = posicion;
-        go.AddComponent<EfectoRecoger>();
+        Efectos.Estallido(posicion);
+        if (instancia == null)
+        {
+            instancia = new GameObject("Textos Flotantes").AddComponent<EfectoRecoger>();
+            instancia.textos = new ObjectPool<TextMeshPro>(CrearTexto, t => t.gameObject.SetActive(true),
+                t => t.gameObject.SetActive(false), t => Destroy(t.gameObject), false, 8, 20);
+        }
+        instancia.StartCoroutine(instancia.Subir(posicion));
     }
 
-    private void Start()
+    private void OnDestroy()
     {
-        if (punto == null) punto = CrearPunto();
-
-        for (int i = 0; i < CantidadBrillos; i++)
-        {
-            var b = new GameObject("Brillo");
-            b.transform.SetParent(transform, false);
-            b.transform.localScale = Vector3.one * Random.Range(0.25f, 0.45f);
-            var sr = b.AddComponent<SpriteRenderer>();
-            sr.sprite = punto;
-            sr.color = Colores[i % Colores.Length];
-            sr.sortingOrder = 30;
-            brillos.Add(sr);
-            velocidades.Add(Random.insideUnitCircle.normalized * Random.Range(3f, 6f));
-        }
-
-        var t = new GameObject("+1");
-        t.transform.SetParent(transform, false);
-        t.transform.localPosition = new Vector3(0f, 0.6f, 0f);
-        texto = t.AddComponent<TextMeshPro>();
-        texto.text = "+1";
-        texto.fontSize = 7;
-        texto.fontStyle = FontStyles.Bold;
-        texto.alignment = TextAlignmentOptions.Center;
-        texto.color = new Color(1f, 0.95f, 0.4f);
-        texto.sortingOrder = 31;
+        if (instancia == this) instancia = null;
     }
 
-    private void Update()
+    private static TextMeshPro CrearTexto()
     {
-        float dt = Time.deltaTime;
-        tiempo += dt;
-        float k = Mathf.Clamp01(tiempo / Duracion);
-
-        for (int i = 0; i < brillos.Count; i++)
-        {
-            velocidades[i] *= 1f - 4f * dt;
-            brillos[i].transform.localPosition += (Vector3)(velocidades[i] * dt);
-            Color c = brillos[i].color;
-            c.a = 1f - k;
-            brillos[i].color = c;
-        }
-
-        if (texto != null)
-        {
-            texto.transform.localPosition += Vector3.up * (1.5f * dt);
-            Color c = texto.color;
-            c.a = 1f - k * k;
-            texto.color = c;
-        }
-
-        if (k >= 1f) Destroy(gameObject);
+        var go = new GameObject("+1");
+        go.transform.SetParent(instancia.transform, false);
+        var t = go.AddComponent<TextMeshPro>();
+        t.text = "+1";
+        t.fontSize = 7;
+        t.fontStyle = FontStyles.Bold;
+        t.alignment = TextAlignmentOptions.Center;
+        t.sortingLayerID = SortingLayer.NameToID("UI 3");
+        t.sortingOrder = 60;
+        return t;
     }
 
-    private static Sprite CrearPunto()
+    private IEnumerator Subir(Vector3 posicion)
     {
-        const int lado = 16;
-        var tex = new Texture2D(lado, lado);
-        float r = lado / 2f;
-        for (int y = 0; y < lado; y++)
-            for (int x = 0; x < lado; x++)
-            {
-                float d = Vector2.Distance(new Vector2(x + 0.5f, y + 0.5f), new Vector2(r, r));
-                tex.SetPixel(x, y, new Color(1f, 1f, 1f, Mathf.Clamp01(r - d)));
-            }
-        tex.Apply();
-        return Sprite.Create(tex, new Rect(0, 0, lado, lado), new Vector2(0.5f, 0.5f), lado);
+        var t = textos.Get();
+        Vector3 inicio = posicion + Vector3.up * 0.5f;
+        yield return Ease.Tween(0.6f, k =>
+        {
+            t.transform.position = inicio + Vector3.up * (0.8f * k);
+            t.transform.localScale = Vector3.one * (k < 0.2f ? Mathf.Lerp(0.6f, 1.2f, k / 0.2f) : Mathf.Lerp(1.2f, 1f, (k - 0.2f) / 0.8f));
+            t.color = Paleta.ConAlfa(Paleta.Limon, 1f - k * k);
+        }, Ease.Lineal, false);
+        textos.Release(t);
     }
 }

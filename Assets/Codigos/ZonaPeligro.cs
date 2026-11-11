@@ -10,6 +10,7 @@ public class ZonaPeligro : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Personaje")) return;
+        Efectos.Salpicadura(other.transform.position);
         if (gestor != null) gestor.QuitarVida();
     }
 }

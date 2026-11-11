@@ -17,7 +17,7 @@ public static class DecoradorNivel
     private const string NombreNubes = "Nubes (decoracion)";
     private const string NombreGigantes = "Chupetas Gigantes (decoracion)";
     private const string NombreAmpliacion = "Ampliacion (nivel 2)";
-    private const float LimiteDerechoNivel = 113f;
+    private const float LimiteDerechoNivel = 176f;
 
     private const string RutaClipEspuma = "Assets/Animaciones/Espuma - Ola.anim";
     private const string RutaControlEspuma = "Assets/Animaciones/Espuma.controller";
@@ -85,8 +85,8 @@ public static class DecoradorNivel
         Bloque(raiz, "Isla C", new Vector2(91.5f, 0f), new Vector2(6f, 2f), cuadrado);
         Movil(Bloque(raiz, "Plataforma 1 - Movil B", new Vector2(97f, 1.8f), new Vector2(2.6f, 0.4f), cuadrado), new Vector2(5.5f, 0f), 1.2f, 1.5f);
         Bloque(raiz, "Isla Final", new Vector2(108f, 0.5f), new Vector2(6f, 3f), cuadrado);
-        Bloque(raiz, "Muro Final", new Vector2(111.6f, 6f), new Vector2(1.2f, 14f), cuadrado);
-        registro.Add("Seccion nueva: 13 plataformas e islas (4 moviles)");
+        // el muro del final ahora lo crea PulidoJuego, al terminar la seccion 3
+        registro.Add("Seccion nueva: 12 plataformas e islas (4 moviles)");
 
         // agua que quita vidas
         var controlEspuma = AsegurarAnimacionEspuma();
@@ -286,13 +286,13 @@ public static class DecoradorNivel
             }
             else if (tipo == "CinemachinePositionComposer")
             {
-                PonerVector3(so, "Damping", new Vector3(0.6f, 0.5f, 1f));
+                PonerVector3(so, "Damping", new Vector3(0.8f, 0.3f, 1f));
                 PonerBool(so, "Lookahead.Enabled", true);
-                PonerFloat(so, "Lookahead.Time", 0.3f);
+                PonerFloat(so, "Lookahead.Time", 0.5f);
                 PonerFloat(so, "Lookahead.Smoothing", 5f);
                 PonerBool(so, "Lookahead.IgnoreY", true);
                 PonerBool(so, "Composition.DeadZone.Enabled", true);
-                PonerVector2(so, "Composition.DeadZone.Size", new Vector2(0.12f, 0.18f));
+                PonerVector2(so, "Composition.DeadZone.Size", new Vector2(0.1f, 0.1f));
                 registro.Add("Camara: suavizado y anticipacion activados");
             }
             else if (tipo == "CinemachineConfiner2D")
@@ -441,6 +441,14 @@ public static class DecoradorNivel
         return true;
     }
 
+    // la usa PulidoJuego para pintar sus propias plataformas con el mismo estilo
+    internal static bool DecorarSiCorresponde(SpriteRenderer sr)
+    {
+        if (sr == null || !Paleta(sr.name, out Color baseC, out Color glaseado)) return false;
+        Decorar(sr, baseC, glaseado);
+        return true;
+    }
+
     private static void Decorar(SpriteRenderer sr, Color baseC, Color colorGlaseado)
     {
         sr.color = baseC;
@@ -511,8 +519,9 @@ public static class DecoradorNivel
 
             var mov = nube.gameObject.AddComponent<NubeFlotante>();
             mov.velocidad = Random.Range(0.15f, 0.45f);
-            mov.limiteIzquierdo = -30f;
-            mov.limiteDerecho = LimiteDerechoNivel + 10f;
+            mov.limiteIzquierdo = -45f;
+            mov.limiteDerecho = LimiteDerechoNivel + 30f;
+            mov.parallax = 0.35f;
         }
     }
 

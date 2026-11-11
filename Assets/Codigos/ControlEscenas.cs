@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ControlEscenas : MonoBehaviour
 {
@@ -10,25 +9,21 @@ public class ControlEscenas : MonoBehaviour
 
     public void CargarEscenaInicio()
     {
-        SceneManager.LoadScene("inicio");
+        Transicion.Ir("inicio");
     }
 
     public void CargarEscenaNivel()
     {
-        SceneManager.LoadScene("nivel");
+        Transicion.Ir("nivel");
     }
 
     public void CargarEscenaNivel2()
     {
-        SceneManager.LoadScene("nivel2");
+        Transicion.Ir("nivel2");
     }
 
     public void SalirDelJuego()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;    // dentro de Unity detiene el modo Play
-#else
-        Application.Quit();                                 // en el juego exportado lo cierra
-#endif
+        Transicion.Salir();     // en el editor detiene el modo Play, en el juego exportado lo cierra
     }
 }
