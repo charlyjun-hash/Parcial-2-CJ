@@ -29,7 +29,7 @@ public class MenuInicio : MonoBehaviour
             int estrellas = PlayerPrefs.GetInt("MejorTiempoNivel2Estrellas", 0);
             textoRecord.text = mejor > 0f
                 ? "Mejor tiempo  " + HudJuego.Formato(mejor) + "   ·   " + estrellas + (estrellas == 1 ? " estrella" : " estrellas")
-                : "¡Recoge todas las chupetas para marcar un record!";
+                : "¡Recoge todos los dulces para marcar un record!";
         }
     }
 

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-// Menu "Lollipops > Pulir juego completo": arma en nivel2 e inicio todo lo nuevo
+// Menu "Gum Adventure > Pulir juego completo": arma en nivel2 e inicio todo lo nuevo
 // (interfaz animada, enemigos, camas elasticas, corazones, fondos con profundidad,
 // opciones de volumen). Se puede ejecutar varias veces: borra y recrea lo suyo.
 public static class PulidoJuego
@@ -33,7 +33,7 @@ public static class PulidoJuego
     private static Sprite uiSprite, uiFondo, uiPerilla;
     private static TMP_FontAsset fuente;
 
-    [MenuItem("Lollipops/Pulir juego completo")]
+    [MenuItem("Gum Adventure/Pulir juego completo")]
     public static void Pulir()
     {
         if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
@@ -525,7 +525,7 @@ public static class PulidoJuego
         // ---- cartel de inicio
         var banner = UI("Banner", c, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 160f), new Vector2(1100f, 230f));
         Imagen(banner, uiSprite, Paleta.ConAlfa(Paleta.Ciruela, 0.85f), true);
-        var textoBanner = NuevoTexto(UI("Titulo", banner, Centro, Centro, new Vector2(0f, 28f), new Vector2(1060f, 100f)), "¡A RECOGER CHUPETAS!", 76f, Paleta.Limon);
+        var textoBanner = NuevoTexto(UI("Titulo", banner, Centro, Centro, new Vector2(0f, 28f), new Vector2(1060f, 100f)), "¡A RECOGER DULCES!", 76f, Paleta.Limon);
         var subBanner = NuevoTexto(UI("Subtitulo", banner, Centro, Centro, new Vector2(0f, -55f), new Vector2(1060f, 50f)), "", 32f, Paleta.Crema);
         banner.gameObject.SetActive(false);
 

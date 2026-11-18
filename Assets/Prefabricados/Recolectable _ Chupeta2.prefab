@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6866843582725842216}
   - component: {fileID: 3429832473554815930}
   - component: {fileID: 5123784389985026712}
+  - component: {fileID: 7435249644039054624}
   m_Layer: 0
   m_Name: Recolectable _ Chupeta2
   m_TagString: Untagged
@@ -83,12 +84,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7682394045727411792, guid: f6fb14a43fba52e4ca7ffc23190e249e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0901f4c9878c2da41bea1754ca8c0419, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.0805697, y: 4.2799997}
+  m_Size: {x: 3.2, y: 3.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -145,3 +146,25 @@ MonoBehaviour:
   SonidoOcio: {fileID: 0}
   SonidoRecolectado: {fileID: 0}
   contador: {fileID: 0}
+--- !u!95 &7435249644039054624
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450922349478994090}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db63240e360527b4181701e195aeaf0c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

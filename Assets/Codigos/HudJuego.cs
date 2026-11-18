@@ -55,8 +55,8 @@ public class HudJuego : MonoBehaviour
 
     private IEnumerator Banner(int total, int vidas)
     {
-        textoBanner.text = "¡A RECOGER CHUPETAS!";
-        subtextoBanner.text = total + " chupetas  ·  " + vidas + " vidas  ·  ESC para pausa";
+        textoBanner.text = "¡A RECOGER DULCES!";
+        subtextoBanner.text = total + " dulces  ·  " + vidas + " vidas  ·  ESC para pausa";
         banner.gameObject.SetActive(true);
         banner.localScale = Vector3.zero;
         yield return Ease.Esperar(0.35f);
@@ -216,7 +216,7 @@ public class HudJuego : MonoBehaviour
         yield return Ease.Tween(0.6f, t =>
         {
             int n = Mathf.RoundToInt(total * t);
-            textoEstadisticas.text = "Chupetas  " + n + " / " + total + "\nTiempo  " + Formato(tiempo * t) + "\nVidas  " + vidasTexto;
+            textoEstadisticas.text = "Dulces  " + n + " / " + total + "\nTiempo  " + Formato(tiempo * t) + "\nVidas  " + vidasTexto;
         }, Ease.OutCubic);
 
         if (esRecord)
@@ -263,7 +263,7 @@ public class HudJuego : MonoBehaviour
         yield return Ease.Tween(0.5f, t => tituloDerrota.anchoredPosition = Vector2.LerpUnclamped(arriba, final, t), Ease.OutBack);
         StartCoroutine(Sacudir(tituloDerrota));
 
-        textoResumenDerrota.text = "Recogiste " + recogidas + " de " + total + " chupetas.\n¡Tu puedes, intentalo otra vez!";
+        textoResumenDerrota.text = "Recogiste " + recogidas + " de " + total + " dulces.\n¡Tu puedes, intentalo otra vez!";
         foreach (var b in botonesDerrota)
         {
             StartCoroutine(Ease.Tween(0.3f, t => b.localScale = Vector3.one * t, Ease.OutBack));

@@ -84,7 +84,7 @@ public class GameManagerNivel : MonoBehaviour
 
         if (hud != null) hud.Iniciar(totalChupetas, Vidas);
         else ActualizarVidas();
-        Debug.Log("[Juego] Nivel iniciado: " + totalChupetas + " chupetas, " + Vidas + " vidas");
+        Debug.Log("[Juego] Nivel iniciado: " + totalChupetas + " dulces, " + Vidas + " vidas");
     }
 
     private void OnDestroy()
@@ -101,7 +101,7 @@ public class GameManagerNivel : MonoBehaviour
         {
             recogidasMostradas = recogidas;
             if (hud != null) hud.ActualizarContador(recogidas, totalChupetas);
-            Debug.Log("[Juego] Chupeta recogida " + recogidas + "/" + totalChupetas);
+            Debug.Log("[Juego] Dulce recogido " + recogidas + "/" + totalChupetas);
         }
         if (hud == null && textoMeta != null) textoMeta.text = recogidas + " / " + totalChupetas;
 
@@ -268,7 +268,7 @@ public class GameManagerNivel : MonoBehaviour
         }
         if (panelVictoria != null) panelVictoria.SetActive(true);
         if (textoResumenVictoria != null)
-            textoResumenVictoria.text = "Recogiste las " + totalChupetas + " chupetas en " + HudJuego.Formato(tiempo);
+            textoResumenVictoria.text = "Recogiste los " + totalChupetas + " dulces en " + HudJuego.Formato(tiempo);
     }
 
     private void Derrota(bool porVacio = false)

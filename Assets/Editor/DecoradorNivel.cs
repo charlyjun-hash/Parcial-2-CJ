@@ -4,7 +4,7 @@ using UnityEditor.Animations;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-// Menu "Lollipops > Mejorar nivel 2": ajusta la camara Cinemachine, cambia los
+// Menu "Gum Adventure > Mejorar nivel 2": ajusta la camara Cinemachine, cambia los
 // sonidos y le da un estilo de dulce al nivel. Se puede ejecutar varias veces:
 // borra y vuelve a crear sus propias decoraciones.
 public static class DecoradorNivel
@@ -25,7 +25,7 @@ public static class DecoradorNivel
     private const float SeparacionEspuma = 0.5f; // 8 bolitas por ola
     private const float DuracionOla = 2f;
 
-    [MenuItem("Lollipops/Mejorar nivel 2")]
+    [MenuItem("Gum Adventure/Mejorar nivel 2")]
     public static void Mejorar()
     {
         var escena = EditorSceneManager.GetActiveScene();
