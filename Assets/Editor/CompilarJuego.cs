@@ -37,6 +37,7 @@ public static class CompilarJuego
         EditorBuildSettings.scenes = lista;
 
         PlayerSettings.productName = NombreJuego;
+        AsignarIcono();
 
         string escritorio = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         string carpeta = Path.Combine(escritorio, NombreJuego);
@@ -55,5 +56,31 @@ public static class CompilarJuego
         var r = reporte.summary;
         Debug.Log($"[Compilar] Resultado: {r.result}  errores: {r.totalErrors}  tamano: {r.totalSize / (1024 * 1024)} MB  ruta: {r.outputPath}");
         return r.result == BuildResult.Succeeded;
+    }
+
+    const string RutaIcono = "Assets/Icono/icono_gum_adventure.png";
+
+    // Pone el icono del juego (el que se ve en el .exe y en la barra de tareas)
+    [MenuItem("Gum Adventure/Asignar icono del juego")]
+    public static void AsignarIcono()
+    {
+        var importador = AssetImporter.GetAtPath(RutaIcono) as TextureImporter;
+        if (importador == null)
+        {
+            Debug.LogWarning("[Compilar] No se encontro el icono en " + RutaIcono);
+            return;
+        }
+        if (importador.textureType != TextureImporterType.Default || importador.textureCompression != TextureImporterCompression.Uncompressed)
+        {
+            importador.textureType = TextureImporterType.Default;
+            importador.alphaIsTransparency = true;
+            importador.mipmapEnabled = false;
+            importador.textureCompression = TextureImporterCompression.Uncompressed;
+            importador.SaveAndReimport();
+        }
+        var icono = AssetDatabase.LoadAssetAtPath<Texture2D>(RutaIcono);
+        PlayerSettings.SetIcons(UnityEditor.Build.NamedBuildTarget.Unknown, new[] { icono }, IconKind.Any);
+        AssetDatabase.SaveAssets();
+        Debug.Log("[Compilar] Icono asignado: " + RutaIcono);
     }
 }
